@@ -35,7 +35,14 @@ int main()
         {
             if (state == IN)
             {
-                numArr[cCounter] += 1;
+                if (cCounter >= 10)
+                {
+                    numArr[MAXLEN - 1] += 1;
+                }
+                else
+                {
+                    numArr[cCounter - 1] += 1;
+                }
                 state = OUT;
                 cCounter = 0;
             }
@@ -47,11 +54,34 @@ int main()
         }
     }
 
+/* check for the case when the input ends on a char */
+    if (state == IN)
+    {
+        if (cCounter >= 10)
+        {
+            numArr[MAXLEN - 1]++;
+        }
+        else
+        {
+            numArr[cCounter - 1]++;
+        }
+    }
+
+/* printing the result as a histogram */
     printf("Histogram of the length of words:\n");
 
-    for (j = 1; j <= MAXLEN; j++)
+    for (j = 0; j < MAXLEN; j++)
     {
-        printf(" %d : ", j);
+
+        if (j == MAXLEN - 1)
+        {
+            printf(" %d+ : ", j + 1);
+        }
+        else
+        {
+            printf(" %d   : ", j + 1);
+        }
+
         for (int k = 0; k < numArr[j]; k++)
         {
             printf("*");
